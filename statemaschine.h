@@ -58,7 +58,7 @@ typedef union
 
 // Definiere globale Variablen
 //----------------------------------------------------------------------
-extern Statemaschine BMSstate;												// Variable fuer BMS-Statemaschine definieren
+extern Statemaschine Main_Statemaschine;									// Variable fuer BMS-Statemaschine definieren
 extern uint32_t longError;													// Variable fuer Langzeit-Fehler, um Fehler eine bestimmte Zeit noch anzuzeigen, auch wenn nicht mehr vorhanden
 extern uint32_t longWarning;												// Variable fuer Langzeit-Warnung, um Warnung eine bestimmte Zeit noch anzuzeigen, auch wenn nicht mehr vorhanden
 //----------------------------------------------------------------------

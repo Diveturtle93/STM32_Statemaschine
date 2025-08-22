@@ -28,7 +28,7 @@
 
 // Variablen einbinden
 //----------------------------------------------------------------------
-Statemaschine BMSstate = {{Start, true, false, false, false}};
+Statemaschine Main_Statemaschine = {{Start, true, false, false, false}};
 static uint32_t timeError = 0, timeWarning = 0;
 uint32_t longError = 0, longWarning = 0;
 //----------------------------------------------------------------------
@@ -43,7 +43,7 @@ void setState(uint8_t State)
 		case Ready:
 		{
 			// State setzen
-			BMSstate.State = Ready;
+			Main_Statemaschine.State = Ready;
 			uartTransmit("Ready\n", 6);
 
 			break;
@@ -51,7 +51,7 @@ void setState(uint8_t State)
 		case KL15:
 		{
 			// State setzen
-			BMSstate.State = KL15;
+			Main_Statemaschine.State = KL15;
 			uartTransmit("KL15\n", 5);
 
 			break;
@@ -59,7 +59,7 @@ void setState(uint8_t State)
 		case Anlassen:
 		{
 			// State setzen
-			BMSstate.State = Anlassen;
+			Main_Statemaschine.State = Anlassen;
 			uartTransmit("Anlassen\n", 9);
 
 			break;
@@ -67,7 +67,7 @@ void setState(uint8_t State)
 		case Precharge:
 		{
 			// State setzen
-			BMSstate.State = Precharge;
+			Main_Statemaschine.State = Precharge;
 			uartTransmit("Precharge\n", 10);
 
 			break;
@@ -75,7 +75,7 @@ void setState(uint8_t State)
 		case ReadyToDrive:
 		{
 			// State setzen
-			BMSstate.State = ReadyToDrive;
+			Main_Statemaschine.State = ReadyToDrive;
 			uartTransmit("ReadyToDrive\n", 13);
 
 			break;
@@ -83,7 +83,7 @@ void setState(uint8_t State)
 		case Drive:
 		{
 			// State setzen
-			BMSstate.State = Drive;
+			Main_Statemaschine.State = Drive;
 			uartTransmit("Drive\n", 6);
 
 			break;
@@ -91,7 +91,7 @@ void setState(uint8_t State)
 		case Laden:
 		{
 			// State setzen
-			BMSstate.State = Laden;
+			Main_Statemaschine.State = Laden;
 			uartTransmit("Laden\n", 6);
 
 			break;
@@ -99,7 +99,7 @@ void setState(uint8_t State)
 		case Standby:
 		{
 			// State setzen
-			BMSstate.State = Standby;
+			Main_Statemaschine.State = Standby;
 			uartTransmit("Standby\n", 8);
 
 			break;
@@ -107,7 +107,7 @@ void setState(uint8_t State)
 		case Ausschalten:
 		{
 			// State setzen
-			BMSstate.State = Ausschalten;
+			Main_Statemaschine.State = Ausschalten;
 			uartTransmit("Ausschalten\n", 12);
 
 			break;
@@ -130,13 +130,13 @@ void setStatus(uint8_t Status)
 		case StateNormal:
 		{
 			// Wenn Fehler Status Warnung
-			if (BMSstate.Status & StateWarning)
+			if (Main_Statemaschine.Status & StateWarning)
 			{
 				// Wenn letzte Warnung schon laenger als 30s nicht mehr aufgetreten
 				if (millis() > (timeWarning + WARNING_RESET))
 				{
 					// Status zuruecksetzen
-					BMSstate.Status = (Status | BMSstate.State);
+					Main_Statemaschine.Status = (Status | Main_Statemaschine.State);
 
 					// Fehlervariablen zuruecksetzen
 					longWarning = 0;
@@ -152,13 +152,13 @@ void setStatus(uint8_t Status)
 			timeWarning = millis();
 
 			// Wenn Fehler Status Error
-			if (BMSstate.Status & StateError)
+			if (Main_Statemaschine.Status & StateError)
 			{
 				// Wenn letzter Error schon laenger als 5min nicht mehr aufgetreten
 				if (millis() > (timeError + ERROR_RESET))
 				{
 					// Status zuruecksetzen
-					BMSstate.Status = (StateWarning | BMSstate.State);
+					Main_Statemaschine.Status = (StateWarning | Main_Statemaschine.State);
 				}
 
 				break;
@@ -170,7 +170,7 @@ void setStatus(uint8_t Status)
 			timeError = millis();
 
 			// Wenn Fehler Status kritischer Fehler
-			if (BMSstate.Status & CriticalError)
+			if (Main_Statemaschine.Status & CriticalError)
 			{
 				// Status setzen ueberspringen
 				break;
@@ -179,13 +179,13 @@ void setStatus(uint8_t Status)
 		case CriticalError:
 		{
 			// Status setzen
-			BMSstate.Status = (Status | BMSstate.State);
+			Main_Statemaschine.Status = (Status | Main_Statemaschine.State);
 			break;
 		}
 		default:
 		{
 			// Status setzen
-			BMSstate.Status = (CriticalError | BMSstate.State);
+			Main_Statemaschine.Status = (CriticalError | Main_Statemaschine.State);
 
 			// Fehlerausgabe wenn Status nicht korrekt
 			uartTransmit("BMS Kritischer Fehler Statemaschine\n!", 36);
