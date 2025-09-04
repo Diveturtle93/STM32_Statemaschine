@@ -16,7 +16,7 @@
 
 // Konstanten definieren
 //----------------------------------------------------------------------
-#define BMSTIME										300000					// Standby Zeit nach ausschalten KL15, 5min
+#define STANDBYTIME									300000					// Standby Zeit nach ausschalten KL15, 5min
 #define ERROR_RESET									300000					// Zeit 5min bis Error Zurueckgesetzt werden kann
 #define WARNING_RESET								30000					// Zeit 30s bis Warning Zurueckgesetzt werden kann
 //----------------------------------------------------------------------
@@ -58,7 +58,7 @@ typedef union
 
 // Definiere globale Variablen
 //----------------------------------------------------------------------
-extern Statemaschine Main_Statemaschine;									// Variable fuer BMS-Statemaschine definieren
+extern Statemaschine Main_Statemaschine;									// Variable fuer Main-Statemaschine definieren
 extern uint32_t longError;													// Variable fuer Langzeit-Fehler, um Fehler eine bestimmte Zeit noch anzuzeigen, auch wenn nicht mehr vorhanden
 extern uint32_t longWarning;												// Variable fuer Langzeit-Warnung, um Warnung eine bestimmte Zeit noch anzuzeigen, auch wenn nicht mehr vorhanden
 //----------------------------------------------------------------------

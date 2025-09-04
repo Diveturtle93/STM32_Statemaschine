@@ -21,9 +21,9 @@
 
 // Einfuegen der eigenen Include Dateien
 //----------------------------------------------------------------------
-#include "statemaschine.h"
-#include "BasicUart.h"
+#include "basicuart.h"
 #include "millis.h"
+#include "statemaschine.h"
 //----------------------------------------------------------------------
 
 // Variablen einbinden
@@ -188,7 +188,7 @@ void setStatus(uint8_t Status)
 			Main_Statemaschine.Status = (CriticalError | Main_Statemaschine.State);
 
 			// Fehlerausgabe wenn Status nicht korrekt
-			uartTransmit("BMS Kritischer Fehler Statemaschine\n!", 36);
+			uartTransmit("Kritischer Fehler in der Statemaschine!\n", 40);
 			break;
 		}
 	}
