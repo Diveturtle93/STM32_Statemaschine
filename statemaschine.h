@@ -8,10 +8,23 @@
 // Projekt	:	Statemaschine
 //----------------------------------------------------------------------
 
+// Saveguard symbol
+//----------------------------------------------------------------------
+#pragma once
+//----------------------------------------------------------------------
+
 // Dateiheader definieren
 //----------------------------------------------------------------------
 #ifndef INC_STATEMASCHINE_H_
 #define INC_STATEMASCHINE_H_
+//----------------------------------------------------------------------
+
+// Version definieren
+//----------------------------------------------------------------------
+#define STATEMASCHINE_MAJOR							0
+#define STATEMASCHINE_MINOR							0
+#define STATEMASCHINE_PATCH							0
+#define STATEMASCHINE_DEV							0
 //----------------------------------------------------------------------
 
 // Konstanten definieren
@@ -25,15 +38,15 @@
 //----------------------------------------------------------------------
 typedef enum
 {
-	Start,																	// 0 Starte Batteriemanagement
-	Ready,																	// 1 Batteriemanagement gestartet
+	Start,																	// 0 Starte Mikrocontroller
+	Ready,																	// 1 Statemaschine gestartet
 	KL15,																	// 2 KL15 aktiv
 	Anlassen,																// 3 Anlasser betaetigt
 	Precharge,																// 4 Precharge Fahrzeug
-	ReadyToDrive,															// 5 Batteriemanagement bereit fuer Fahrmodus
+	ReadyToDrive,															// 5 Bereit fuer Fahrmodus
 	Drive,																	// 6 Fahrzeug im Fahrmodus
-	Standby,																// 7 Auto wird abgeschaltet, Zeitverzoegerung bis Batteriemanagement ausgeht
-	Ausschalten,															// 8 Batteriemanagement ausschalten
+	Standby,																// 7 Auto wird abgeschaltet, Zeitverzoegerung bis Mikrocontroller ausgeht
+	Ausschalten,															// 8 Mikrocontroller ausschalten
 	Laden,																	// 9 Lademodus
 	StateNormal = 0x10,														// 16 Normalzustand
 	StateWarning = 0x20,													// 32 Warnung
