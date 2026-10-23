@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------
 // Sprache	:	C
 // Datum	:	11.08.2025
-// Version	:	1.0
 // Autor	:	Diveturtle93
 // Projekt	:	Statemaschine
 // Quelle	:	
@@ -19,11 +18,16 @@
 #include "main.h"
 //----------------------------------------------------------------------
 
-// Einfuegen der eigenen Include Dateien
+// Einfuegen der eigenen Include-Dateien
 //----------------------------------------------------------------------
 #include "basicuart.h"
 #include "millis.h"
 #include "statemaschine.h"
+//----------------------------------------------------------------------
+
+// Variablen definieren
+//----------------------------------------------------------------------
+
 //----------------------------------------------------------------------
 
 // Variablen einbinden
@@ -35,7 +39,7 @@ uint32_t longError = 0, longWarning = 0;
 
 // Setze neuen State der Statemaschine
 //----------------------------------------------------------------------
-void setState(uint8_t State)
+void setState (uint8_t State)
 {
 	// State auswaehlen
 	switch (State)
@@ -122,7 +126,7 @@ void setState(uint8_t State)
 
 // Setze Fehler Status der Statemaschine
 //----------------------------------------------------------------------
-void setStatus(uint8_t Status)
+void setStatus (uint8_t Status)
 {
 	// Fehler Status setzen
 	switch (Status & 0xF0)
@@ -145,6 +149,12 @@ void setStatus(uint8_t Status)
 
 				break;
 			}
+			// fall through - <Wenn neuer Status Normal sein soll, aber vorher Status Error war,
+			// dann muss zusaetzlich noch geprueft werden, ob der Status Error schon laenger als
+			// 5min nicht mehr aufgetreten ist, um den Status zurueckzusetzen. Dann lauft der Status
+			// erstmal auf Warnung, bis auch die Warnung laenger als 30s nicht mehr aufgetreten ist,
+			// dann wird der Status Normal gesetzt.
+			// Ein Kritischer Fehler muss immer manuell zurueckgesetzt werden.>
 		}
 		case StateWarning:
 		{
@@ -163,6 +173,10 @@ void setStatus(uint8_t Status)
 
 				break;
 			}
+			// fall through - <Wenn der neue Status Warning sein soll, aber vorher Status Error war,
+			// dann muss zusaetzlich noch geprueft werden, ob der Status Error schon laenger als
+			// 5min nicht mehr aufgetreten ist, um den Status zurueckzusetzen.
+			// Ein Kritischer Fehler muss immer manuell zurueckgesetzt werden.>
 		}
 		case StateError:
 		{
@@ -175,6 +189,8 @@ void setStatus(uint8_t Status)
 				// Status setzen ueberspringen
 				break;
 			}
+			// fall through - <Wenn der neue Status Error sein soll, aber vorher Status Kritischer Fehler war,
+			// dann muss der Kritische Fehler manuell zurueckgesetzt werden.>
 		}
 		case CriticalError:
 		{

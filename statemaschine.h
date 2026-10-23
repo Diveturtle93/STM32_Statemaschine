@@ -3,12 +3,12 @@
 //----------------------------------------------------------------------
 // Sprache	:	C
 // Datum	:	11.08.2025
-// Version	:	1.0
 // Autor	:	Diveturtle93
 // Projekt	:	Statemaschine
+// Quelle	:
 //----------------------------------------------------------------------
 
-// Saveguard symbol
+// Sicherheitssymbol
 //----------------------------------------------------------------------
 #pragma once
 //----------------------------------------------------------------------
@@ -29,24 +29,24 @@
 
 //----------------------------------------------------------------------
 
-// Einfuegen der eigenen Include Dateien
+// Einfuegen der eigenen Include-Dateien
 //----------------------------------------------------------------------
 
+//----------------------------------------------------------------------
+
+// Definiere Debug-Symbole
+//----------------------------------------------------------------------
+#ifdef DEBUG
+	#define DEBUG_STATEMASCHINE
+#endif
 //----------------------------------------------------------------------
 
 // Version definieren
 //----------------------------------------------------------------------
-#define STATEMASCHINE_MAJOR							0
-#define STATEMASCHINE_MINOR							0
-#define STATEMASCHINE_PATCH							0
-#define STATEMASCHINE_DEV							0
-//----------------------------------------------------------------------
-
-// Konstanten definieren
-//----------------------------------------------------------------------
-#define STANDBYTIME									300000					// Standby Zeit nach ausschalten KL15, 5min
-#define ERROR_RESET									300000					// Zeit 5min bis Error Zurueckgesetzt werden kann
-#define WARNING_RESET								30000					// Zeit 30s bis Warning Zurueckgesetzt werden kann
+#define STATEMASCHINE_MAJOR						0
+#define STATEMASCHINE_MINOR						0
+#define STATEMASCHINE_PATCH						0
+#define STATEMASCHINE_DEV						1
 //----------------------------------------------------------------------
 
 // Definiere Statemaschine Typedefines
@@ -80,8 +80,15 @@ typedef union
 		uint8_t CriticalError : 1;											// Statemaschine kritischer Error
 	};
 
-	uint8_t Status;									// 1 Byte
+	uint8_t Status;															// 1 Byte
 } Statemaschine;
+//----------------------------------------------------------------------
+
+// Konstanten definieren
+//----------------------------------------------------------------------
+#define STANDBYTIME								300000						// Standby Zeit nach ausschalten KL15, 5min
+#define ERROR_RESET								300000						// Zeit 5min bis Error Zurueckgesetzt werden kann
+#define WARNING_RESET							30000						// Zeit 30s bis Warning Zurueckgesetzt werden kann
 //----------------------------------------------------------------------
 
 // Definiere globale Variablen
